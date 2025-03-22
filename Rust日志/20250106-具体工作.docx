@@ -1,0 +1,187 @@
+在假期学习的第一个周期里，通过阅读《Rust程序设计》和《Rust圣经》，我学习了Rust语言的基础语法知识，并完成了相关练习题。在学习的过程中，我发现Rust的数据类型和结构都比以前学习的编程语言要复杂，学习速度缓慢，归纳总结第一周期知识点和练习题目如下：
+Intro.代码知识点总结:
+打印由std::fmt中定义的一系列宏处理，其中一些是：
+格式!：将格式化的文本写入String
+印刷!：同格式！但是文本被打印到控制台（io::stdout）。
+println !和打印一样！但是附加了一个换行符。
+eprint !和打印一样！但是文本被打印到标准错误（io::stderr）。
+eprintln !和eprint一样！但是附加了一个换行符。
+它们都以相同的方式解析文本。
+Fn main() {
+//一般情况下，‘{}’会被自动替换为any
+/ /参数。这些将被简化。
+println !（"{} days", 31）；
+//可以使用位置参数。在“{}”内指定整数
+//确定哪个附加参数将被替换。争论开始
+//格式字符串后面紧接0。
+println !(“{0}，这是{1}。{1}，这是{0}","Alice", "Bob")；
+//可以命名参数。
+println !{主语}{动词}{宾语}，
+对象=“懒狗”；
+主题=“敏捷的棕色狐狸”，
+动词=“跳过”);
+//通过指定格式字符，可以调用不同的格式
+//在‘:’后面。
+println !（“基数10:{}”，69420）；/ / 69420
+println !（"Base 2 (binary): {:b}", 69420）；/ / 10000111100101100
+println !（“进制8（八进制）：{:0}”，69420）；/ / 207454
+println !（“十六进制：{:x}”， 69420）；/ / 10 f2c
+//你可以右对齐指定宽度的文本。这将
+//输出“ 1”（四个空白和一个“1”，总宽度为5。）
+println !(“{数量:> 5}”,数量= 1);
+//你可以用额外的零填充数字
+println !(“{数量:0 > 5}”,数量= 1);/ / 00001
+//通过翻转标志向左调整。这将输出“10000”。
+println !(“{数量:0 < 5}”,数量= 1);/ / 10000
+//你可以在格式说明符中添加一个‘ $ ’来使用命名参数。
+println !（"{number:0>width$}", number=1, width=5）；
+// Rust甚至检查是否使用了正确的参数数量。
+println !（“我的名字是{0}，{1}{0}”，“Bond”）；
+//修复^添加缺失的参数：“James”
+
+//只有实现了fmt::Display的类型才能使用‘{}’进行格式化。
+//定义的类型默认不实现fmt::Display。
+
+#[allow(dead_code)] //禁用‘ dead_code ’警告未使用的模块
+结构体结构(手机等);
+
+//这将不会编译，因为‘ Structure ’没有实现
+/ / fmt::显示。
+/ /换行打印!(“这结构“{}”不会打印…”,结构(3));
+^尝试取消注释这一行
+//对于Rust 1.58及以上版本，你可以直接从a中捕获参数
+//周围变量。就像上面一样，这将输出
+// “1“， 4个空格和一个”1”
+设数：f64 = 1.0；
+让width: ussize = 5；
+println !(“{数量:宽度> $}”);
+}
+题目举例：
+例如intro.2的题目中，
+fn main() { println!("Hello {}!"); }  需要修改代码
+
+题目中的代码缺少一个占位符的值，因此会报错。如果在 "Hello {}!" 中填充一个具体的值，就可以正常运行代码了。
+
+如以下练习题：
+Intro.2
+fn main() {
+    println!("Hello {}!","babe");
+}
+
+因为println后面{}没有具体内容，没有办法完成输出，所以在（）后面加上我们需要输出的内容，就可以使代码正常运行，如题目中我所添加的“babe”
+Variable.1
+fn main() {
+    let x = 5;
+    println!("x has the value {}", x);
+}
+在这一道题目中，因为是未知量x，我们对x赋值需要依照格式填写完整，在第二行 x=5前面补全加上let，即可实现代码的正常运行。
+Variable.2
+fn main() {
+    let x=5;
+    if x == 10 {
+        println!("x is ten!");
+    } else {
+        println!("x is not ten!");
+    }
+}
+在这一道题中也同理添加let即可使代码正常运行。
+Fun.1
+fn main() {
+    let x: i32=5;
+    println!("Number {}", x);
+}
+
+注意输入的格式“x:i32=5”，虽然自己也还不清楚在哪些地方需要说明数据的类型，在哪里不需要说明也可以，但在给未知变量赋值的时候，补充上数据类型，可以让代码运行得更加顺畅。
+fn main() {
+    let  mut x :i64 = 3;
+    println!("Number {}", x);
+    x = 5; // don't change this line
+    println!("Number {}", x);
+}
+
+这一道题目就很具有Fun部分的通病，因为有fn main()大框架，我们对x赋值时，就需要先申明mut x
+fn main() {
+    let number = "T-H-R-E-E"; // don't change this line
+    println!("Spell a Number : {}", number);
+    let mut number:i64 = 3; // don't rename this variable
+    println!("Number plus two is : {}", number + 2);
+}
+这道题目中要说明let number的数据类型，补充上：i64即可
+if1.
+pub fn bigger(a: i32, b: i32) -> i32 {
+    // Complete this function to return the bigger number!
+    // Do not use:
+    // - another function call
+    // - additional variables
+}
+
+// Don't mind this for now :)
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ten_is_bigger_than_eight() {
+        assert_eq!(10, bigger(10, 8));
+    }
+
+    #[test]
+    fn fortytwo_is_bigger_than_thirtytwo() {
+        assert_eq!(42, bigger(32, 42));
+    }
+}
+我们需要在不使用额外函数调用和额外变量的情况下完成 bigger 函数的实现。可以通过使用 Rust 的条件表达式（if 表达式）来实现这个功能,所以我们在原基础上，增加：if a > b { a } else { b }这部分内容即可。
+以下是修改后的代码：
+pub fn bigger(a: i32, b: i32) -> i32 {
+    if a > b { a } else { b }
+}
+
+// Don't mind this for now :)
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ten_is_bigger_than_eight() {
+        assert_eq!(10, bigger(10, 8));
+    }
+
+    #[test]
+    fn fortytwo_is_bigger_than_thirtytwo() {
+        assert_eq!(42, bigger(32, 42));
+    }
+}
+if a > b { a } else { b }：这是一个简单的条件表达式，用于比较两个整数 a 和 b。
+如果 a 大于 b，则返回 a。
+否则，返回 b。
+这种方式没有使用额外的变量或函数调用，完全符合题目要求。
+if2.
+pub fn foo_if_fizz(fizzish: &str) -> &str {
+    if fizzish == "fizz" {
+        "foo"
+    } else {
+        1
+    }
+}
+
+// No test changes needed!
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn foo_for_fizz() {
+        assert_eq!(foo_if_fizz("fizz"), "foo")
+    }
+
+    #[test]
+    fn bar_for_fuzz() {
+        assert_eq!(foo_if_fizz("fuzz"), "bar")
+    }
+
+    #[test]
+    fn default_to_baz() {
+        assert_eq!(foo_if_fizz("literally anything"), "baz")
+    }
+}
+在当前代码中，foo_if_fizz 函数的返回值类型是 &str，但在 else 分支中返回了一个整数 1，这会导致类型不匹配的错误。接下来修改代码，使其在所有情况下都返回 &str 类型的值，并且满足测试用例的要求。根据测试用例：当输入是 "fizz" 时，返回 "foo",当输入是 "fuzz" 时，返回 "bar",输入，返回 "baz"。所以我们就类比给出的if部分你的格式，完成后面else if部分的代码即可。
